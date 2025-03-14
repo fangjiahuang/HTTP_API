@@ -1,0 +1,5 @@
+# end_gen_semantic
+---
+std_msgs/String         msg
+bool                    success
+std_msgs/String         data

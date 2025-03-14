@@ -1,0 +1,6 @@
+# end_map_builder
+std_msgs/String         collection_name
+---
+std_msgs/String         msg
+bool                    success
+std_msgs/String         data

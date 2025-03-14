@@ -1,0 +1,9 @@
+# points_fusion.srv
+std_msgs/String                 camera_name
+sensor_msgs/CompressedImage     image
+sensor_msgs/PointCloud2         point_cloud
+nav_msgs/Odometry               odometry
+---
+std_msgs/String                 data
+bool                            success
+std_msgs/String                 msg

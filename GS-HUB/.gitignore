@@ -1,0 +1,10 @@
+data/
+/pkgs
+build/
+install/
+log/
+__pycache__/
+*.pyc
+*.jpg
+*.npy
+*.egg-info

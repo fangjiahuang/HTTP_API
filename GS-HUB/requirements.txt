@@ -1,0 +1,8 @@
+#python==3.10
+numpy==1.23.0
+
+requests==2.31.0
+opencv-python==4.10.0.84
+pyaudio==0.2.14
+simpleaudio==1.0.4
+speechRecognition==3.11.0

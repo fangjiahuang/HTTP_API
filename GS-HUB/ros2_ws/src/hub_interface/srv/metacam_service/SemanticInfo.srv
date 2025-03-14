@@ -1,0 +1,10 @@
+#semantic_info.srv
+sensor_msgs/CompressedImage     image
+std_msgs/String                 text
+sensor_msgs/PointCloud2         point_cloud
+nav_msgs/Odometry               odometry
+std_msgs/String                 camera_name
+---
+std_msgs/String                 data
+bool                            success
+std_msgs/String                 msg

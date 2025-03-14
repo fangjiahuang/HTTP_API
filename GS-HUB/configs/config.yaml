@@ -1,0 +1,20 @@
+system:
+ workspace_path: ""
+ data_path: "../data"
+ project_name: "default_project"
+
+skyland_metacam:
+ enable_request: True
+ calibration_path: "../static/calibration.json"
+ metacam_ip: "192.168.19.97"
+ save_camera_data: True
+
+semantic_map:
+ vecdb_url: "http://127.0.0.1:6333"
+ vec_dimension: 1024
+
+
+models:
+ object_detection_url: "http://127.0.0.1:35551/v1/object_detection/predict"
+ text_encoder_url: "http://127.0.0.1:36222/embed/"
+ 
