@@ -22,29 +22,21 @@ class ObjectDetectionRequest(BaseModel):
 # 定义一个目标检测接口，路径为 "/predict"，支持 POST 请求
 @router.post("/predict")
 async def object_detection_endpoint(request: ObjectDetectionRequest):
-    """
-    目标检测接口。
-
-    支持两种方式传入图像：
-    1. 直接传入 Base64 编码的图像字符串（`image` 字段）。
-    2. 上传图像文件（`image_file` 字段）。
-
-    Args:
-        request (ObjectDetectionRequest): 请求数据，包含目标文本和图像。
-
-    Returns:
-        dict: 目标检测的结果。
-    """
     try:
-        # 获取图像数据
-        if request.image_file:  # 如果用户上传了文件
-            # 读取上传的文件内容，返回字节流
-            image_bytes = await request.image_file.read()
-        elif request.image:  # 如果用户传入了 Base64 编码的图像
-            # 将 Base64 编码的字符串解码为字节流
-            image_bytes = base64.b64decode(request.image)
+        # 检查是否提供了 image_file
+        if request.image_file:
+            print("输入格式是.jpg或.png文件")
+            image_bytes = await request.image_file.read()  #直接读.jpg(.png)文件，因为它们本身就是二进制，也就是字节流
+        elif request.image:
+            # 解码 Base64 字符串为字节
+            print("输入格式是base64 string")
+            try:
+                image_bytes = base64.b64decode(request.image, validate=True)  # base64->字节流
+            except base64.binascii.Error as e:
+                print("解码错误")
+                raise HTTPException(status_code=400, detail="Invalid Base64 encoding.")
         else:
-            # 如果既没有上传文件，也没有提供 Base64 图像，抛出 400 错误
+            print("输入为空")
             raise HTTPException(status_code=400, detail="Either 'image' or 'image_file' must be provided.")
 
         # 调用目标检测服务，传入图像字节流和目标文本
@@ -52,15 +44,14 @@ async def object_detection_endpoint(request: ObjectDetectionRequest):
 
         # 检查目标检测服务返回的结果是否包含错误
         if response.get("status") == "error":
-            # 如果服务返回了错误信息，抛出 500 错误
             raise HTTPException(status_code=500, detail=response.get("message", "Unknown error occurred."))
 
-        # 如果服务返回成功，将结果封装后返回给客户端
+        # 返回成功结果
         return {"code": 0, "msg": "success", "data": response}
 
     except HTTPException as e:
-        # 如果捕获到 HTTPException 异常，直接重新抛出
+        # 重新抛出已有的 HTTP 异常
         raise e
     except Exception as e:
-        # 如果捕获到其他异常，抛出 500 错误，并返回错误信息
+        # 捕获其他异常，并返回 500 错误
         raise HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
