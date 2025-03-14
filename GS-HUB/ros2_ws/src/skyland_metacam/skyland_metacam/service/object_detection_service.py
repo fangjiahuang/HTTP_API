@@ -28,25 +28,36 @@ def object_detection_predict(
     # 编码图像为 Base64
     image_base64 = encode_image_bytes_to_base64(image_bytes)
 
+    ##   打点
+    print("成功转换为Base64")
+
+
     # 准备请求数据
     request_data = {
         "image": image_base64,
         "text": target_text
     }
-
+    print("target_text：",end="")
+    print(target_text)
+    
     try:
         # 发起 POST 请求
+        print("正在发起post请求...")
+
         response = requests.post(url, json=request_data)
 
+        print("成功发起post请求")
         # 检查响应状态
         if response.status_code == 200:
             return response.json()
         else:
+            print("响应错误")
             return {
                 "status": "error",
                 "message": f"Request failed with status code {response.status_code}: {response.text}"
             }
     except Exception as e:
+        print("未发起post请求")
         return {
             "status": "error",
             "message": f"An error occurred: {str(e)}"
