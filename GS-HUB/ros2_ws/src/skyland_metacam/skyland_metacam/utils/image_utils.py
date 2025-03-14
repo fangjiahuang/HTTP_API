@@ -8,11 +8,6 @@ import cv2 as cv
 import numpy as np
 import base64
 
-#尝试用sys.path.append加入metacam_sdk
-#import sys
-#sys.path.append("/home/fangjiahuang/projects/GS-HUB/ros2_ws/src/common_utils/common_utils/meta-cam-sdk/build/py")
-#import metacam_sdk
-#from common_utils import timer
 from common_utils import metacam_sdk, timer
 
 # 加载 JSON 文件并返回相机数据
