@@ -1,0 +1,2 @@
+# HTTP_API
+object_detection_service和skyland_service封装成http接口
